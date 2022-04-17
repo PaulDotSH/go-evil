@@ -4,14 +4,17 @@ Go Evil is a collection of malware-like tools that work with each other, using t
 
 # Features
 
-## General
- - Cross Platform
-## Ransomware
- - Encrypts all files it can from the computer
- - Uses a random salt
- - Uses a cryptographically secure random generator (files CANNOT be decrypted without the key)
- - Customizable extension and list of extensions to encrypt
- - Much more
+- ## General
+- Cross Platform
+- "Cheap" to host
+- Easy to setup
+
+- ## Ransomware
+- Encrypts all files it can from the computer
+- Uses a random salt
+- Uses a cryptographically secure random generator (files CANNOT be decrypted without the key)
+- Customizable extension and list of extensions to encrypt
+- Much more
 
 ## License
 All of these tools which are written by me are licensed under AGPL 3.0
