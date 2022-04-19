@@ -3,7 +3,7 @@ module go-evil-ransomware
 go 1.18
 
 require (
-	github.com/PaulDotSH/go-grab-ip v0.0.0-20220418175849-d65f93171f01
+	github.com/PaulDotSH/go-grab-ip v0.0.0-20220419105925-5d6065ea3ec8
 	github.com/shirou/gopsutil v3.21.11+incompatible
 )
 
