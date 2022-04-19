@@ -60,6 +60,10 @@ func Decrypt(key, data []byte) []byte {
 }
 
 func EncryptFile(path string, key []byte) error {
+	if strings.HasSuffix(path, extension) {
+		return nil
+	}
+
 	data, err := ioutil.ReadFile(path)
 	if err != nil {
 		return err
