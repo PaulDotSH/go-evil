@@ -5,6 +5,36 @@ import (
 	"strings"
 )
 
+func GetFileExtensionFast(path string) string {
+	Length := len(path) - 1
+	var sb strings.Builder
+	for Length != -1 {
+		sb.WriteByte(path[Length])
+		if path[Length] == '.' {
+			//reverse now
+			str := sb.String()
+			sb.Reset()
+			Length = len(str) - 1
+			for Length != -1 {
+				sb.WriteByte(str[Length])
+				Length -= 1
+			}
+			return sb.String()
+		}
+		Length -= 1
+	}
+	return ""
+}
+
+func GetFileExtension(path string) string {
+	slices := strings.Split(path, ".")
+	Len := len(slices)
+	if Len == 1 {
+		return ""
+	}
+	return "." + slices[Len-1]
+}
+
 func GenerateKey() string {
 	const size = byte(len(charset) - 1)
 	var builder strings.Builder
@@ -21,4 +51,9 @@ func GenerateKey() string {
 	}
 
 	return builder.String()
+}
+
+//TODO: add an encryption message
+func CreateMessage() {
+
 }
