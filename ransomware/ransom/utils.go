@@ -26,6 +26,25 @@ func GetFileExtensionFast(path string) string {
 	return ""
 }
 
+//we don't need the useless reverse
+func GetFileExtensionFastest(path string) string {
+	Length := len(path) - 1
+	ogLen := Length
+	var sb strings.Builder
+	for Length != 0 {
+		if path[Length] == '.' {
+			for ogLen != Length {
+				sb.WriteByte(path[Length])
+				Length += 1
+			}
+			sb.WriteByte(path[Length])
+			return sb.String()
+		}
+		Length -= 1
+	}
+	return ""
+}
+
 func GetFileExtension(path string) string {
 	slices := strings.Split(path, ".")
 	Len := len(slices)
