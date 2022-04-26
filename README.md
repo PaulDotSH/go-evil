@@ -14,6 +14,8 @@ Go Evil is a collection of malware-like tools that work with each other, using t
 - Uses a random salt
 - Uses a cryptographically secure random generator (files CANNOT be decrypted without the key)
 - Customizable extension and list of extensions to encrypt
+- Files are decrpytable with the same binary (./file decrypt $key)
+- Generates a routine for all drives (encrypts multiple files at the same time)
 - Much more
 
 ## License

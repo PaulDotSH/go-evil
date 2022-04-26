@@ -2,6 +2,8 @@ github.com/PaulDotSH/go-grab-ip v0.0.0-20220419105925-5d6065ea3ec8 h1:XuhPtm2NCJ
 github.com/PaulDotSH/go-grab-ip v0.0.0-20220419105925-5d6065ea3ec8/go.mod h1:QR7vKTHxywIYfDqoVI1t2BpfJIDSXFNBGo2JK2xWXAc=
 github.com/go-ole/go-ole v1.2.6 h1:/Fpf6oFPoeFik9ty7siob0G6Ke8QvQEuVcuChpwXzpY=
 github.com/go-ole/go-ole v1.2.6/go.mod h1:pprOEPIfldk/42T2oK7lQ4v4JSDwmV0As9GaiUsvbm0=
+github.com/lextoumbourou/idle v0.0.0-20211129071637-69c91a94f74b h1:haSl0Zwayg5bgghIK1hwKtChw9Fr5NvqRlhoxf6nIP8=
+github.com/lextoumbourou/idle v0.0.0-20211129071637-69c91a94f74b/go.mod h1:LzWkFRWc/O4Y+L1je8Gj2OnImvZcgQzfkeM7shbM6nQ=
 github.com/shirou/gopsutil v3.21.11+incompatible h1:+1+c1VGhc88SSonWP6foOcLhvnKlUeu/erjjvaPEYiI=
 github.com/shirou/gopsutil v3.21.11+incompatible/go.mod h1:5b4v6he4MtMOwMlS0TUMTu2PcXUg8+E1lC7eC3UO/RA=
 github.com/yusufpapurcu/wmi v1.2.2 h1:KBNDSne4vP5mbSWnJbO+51IMOXJB67QiYCSBrubbPRg=
