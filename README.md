@@ -45,4 +45,6 @@ Run the command below in any of the folders to compile the software
 # SCANS
 The malware should start to get detected as soon as it gets more popular...
 Until then, have fun pentesting :D
+
+### Ransomware
 ![FUD Ransomware Windows 0/26](https://antiscan.me/images/result/DUBMelFlJ6ql.png)
