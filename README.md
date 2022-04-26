@@ -26,3 +26,23 @@ However, any tools I integrate from other projects maintain their original licen
 
 # DISCLAIMER
 ## YOU SHOULD NOT USE ANY OF THESE TOOLS FOR ILLEGAL PURPOSES
+
+# SETUP
+Tutorial Comming soon
+
+# HOW TO BUILD
+Run the command below in any of the folders to compile the software
+```go build .```
+
+# TODO
+- Add auto startup for apps (separate package)
+- Complete the project
+- Check user idle time (separate package)
+- Add backend
+- Add package to change user's wallpaper
+- Add persistence for windows (bsod on process exit)
+
+# SCANS
+The malware should start to get detected as soon as it gets more popular...
+Until then, have fun pentesting :D
+![FUD Ransomware Windows 0/26](https://antiscan.me/images/result/DUBMelFlJ6ql.png)
