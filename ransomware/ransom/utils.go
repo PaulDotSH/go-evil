@@ -75,6 +75,7 @@ func GenerateKey() string {
 	return builder.String()
 }
 
+// CreateMessage You can modify the path you want the message to be written here
 func CreateMessage() {
 	usr, err := user.Current()
 	if err != nil {
