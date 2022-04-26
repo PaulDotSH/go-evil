@@ -21,12 +21,12 @@ func TestEncryptDecrypt(t *testing.T) {
 //faster if you have more extensions
 func BenchmarkExtensionDict(b *testing.B) {
 	test := make([]string, 100)
-	listLen := len(extensions_list)
+	listLen := len(extensionsSlice)
 	for i := 0; i < 100; i++ {
-		test[i] = extensions_list[rand.Intn(listLen)]
+		test[i] = extensionsSlice[rand.Intn(listLen)]
 	}
 	for i := 0; i < b.N; i++ {
-		tmp := extension_dict[test[rand.Intn(listLen)]]
+		tmp := extensionDict[test[rand.Intn(listLen)]]
 		_ = tmp
 	}
 }
@@ -34,15 +34,15 @@ func BenchmarkExtensionDict(b *testing.B) {
 //faster if you have under 100 extensions
 func BenchmarkExtensionList(b *testing.B) {
 	test := make([]string, 100)
-	listLen := len(extensions_list) - 1
+	listLen := len(extensionsSlice) - 1
 	for i := 0; i < 100; i++ {
-		test[i] = extensions_list[rand.Intn(listLen)]
+		test[i] = extensionsSlice[rand.Intn(listLen)]
 	}
 	for i := 0; i < b.N; i++ {
 		nr := rand.Intn(listLen) - 1
 		for j := 0; j < nr; j++ {
 			if j == len(test[j]) {
-				tmp := extensions_list[nr]
+				tmp := extensionsSlice[nr]
 				_ = tmp
 			}
 		}

