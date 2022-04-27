@@ -8,6 +8,7 @@ require (
 )
 
 require (
+	github.com/PaulDotSH/go-idle-info v0.0.0-20220427180051-1c3aa94b2640 // indirect
 	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/yusufpapurcu/wmi v1.2.2 // indirect
 	golang.org/x/sys v0.0.0-20220412211240-33da011f77ad // indirect

