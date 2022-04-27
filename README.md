@@ -41,6 +41,8 @@ Run the command below in any of the folders to compile the software
 - Add backend
 - Add package to change user's wallpaper
 - Add persistence for windows (bsod on process exit)
+- Add a stealer (stuff like steam, cookies etc), cryptostealer and maybe a RAT (hard to do...)
+- Builder from the backend (panel)
 
 # SCANS
 The malware should start to get detected as soon as it gets more popular...

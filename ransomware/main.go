@@ -6,6 +6,12 @@ import (
 	"os"
 )
 
+//TODO IMPORTANT:
+//Make this a package on github.com/PaulDotSH/go-evil/ransomware
+//Use the cmd way to make a cli thingy
+//Make the panel able to change settings and build the programs
+//Make a build script for the panel or sth
+
 //TODO:
 //uncheck read only from files if able to do so and check if it doesn't ignore readonly from windows files
 //Send encryption key, computer and ip details to a backend (as JSON)
