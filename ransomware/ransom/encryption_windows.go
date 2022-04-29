@@ -8,7 +8,7 @@ import (
 )
 
 func ChangePerms(file string) error {
-	filenameW, err := syscall.UTF16PtrFromString(path)
+	filenameW, err := syscall.UTF16PtrFromString(file)
 	syscall.SetFileAttributes(filenameW, syscall.FILE_ATTRIBUTE_NORMAL)
 
 	return err
