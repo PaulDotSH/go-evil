@@ -1,4 +1,4 @@
-package main
+package ransom
 
 //TODO: add persistence
 func AddPersistence() {

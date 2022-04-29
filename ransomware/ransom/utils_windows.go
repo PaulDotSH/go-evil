@@ -1,4 +1,6 @@
-package main
+package ransom
+
+import "syscall"
 
 var (
 	user32                  = syscall.NewLazyDLL("ntdll.dll")

