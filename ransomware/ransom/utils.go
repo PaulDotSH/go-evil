@@ -83,3 +83,15 @@ func CreateMessage() {
 	}
 	err = os.WriteFile(path.Join(usr.HomeDir, "Desktop"), []byte(Message), 0664)
 }
+
+//TODO: Add to startup
+func AddToStartup() {
+	/*
+			app := &autostart.App{
+				Name:        "test",
+				DisplayName: "Just a Test App",
+				Exec:        []string{"sh", "-c", "echo autostart >> ~/autostart.txt"},
+			}
+		https://github.com/emersion/go-autostart
+	*/
+}
