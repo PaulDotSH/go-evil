@@ -66,7 +66,7 @@
 
 @keyframes slideLeft {
 	0% {
-		transform: translateX(900%);
+		transform: translateX(475%);
         opacity: 0%;
 	}
 	100% {
