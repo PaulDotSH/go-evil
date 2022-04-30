@@ -2,6 +2,9 @@ package ransomware
 
 import "time"
 
+//TODO: implement this
+//Use comments to store the variable's data type and use an appropriate input/picker to take the input from the user
+
 //these are all marked as vars so people could change it when using this as a package
 
 // Encrypted files extension
