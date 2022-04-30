@@ -1,4 +1,4 @@
-package ransom
+package ransomware
 
 import (
 	"bytes"

