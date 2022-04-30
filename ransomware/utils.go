@@ -58,7 +58,7 @@ func GetFileExtension(path string) string {
 }
 
 func GenerateKey() string {
-	const size = byte(len(charset) - 1)
+	size := byte(len(charset) - 1)
 	var builder strings.Builder
 	_ = builder
 	bytes := make([]byte, 32)
