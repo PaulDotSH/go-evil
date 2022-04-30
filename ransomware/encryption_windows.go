@@ -1,7 +1,7 @@
 //go:build windows
 // +build windows
 
-package ransom
+package ransomware
 
 import (
 	"syscall"
