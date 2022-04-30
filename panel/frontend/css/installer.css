@@ -1,0 +1,76 @@
+:root {
+    --animation-duration: 1.5s;
+}
+
+.mainContainer {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translateX(-50%) translateY(-50%) !important;
+    text-align: center;
+}
+
+.note {
+    font-size: small;
+}
+
+.slideDownFadeIn{
+	animation-name: slideDownFadeIn;
+
+	animation-duration: var(--animation-duration);	
+
+	animation-timing-function: ease;	
+}
+
+@keyframes slideDownFadeIn {
+	0% {
+		transform: translateY(-100%);
+        opacity: 0%;
+	}
+	100% {
+		transform: translateY(0%);
+        opacity: 100%;
+	}		
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.slideUpFadeIn{
+	animation-name: slideUpFadeIn;
+    animation-fill-mode: forwards;
+	animation-duration: var(--animation-duration);	
+
+	animation-timing-function: ease;	
+}
+
+@keyframes slideUpFadeIn {
+	0% {
+		transform: translateY(50%);
+        opacity: 0%;
+	}
+	100% {
+		transform: translateY(0%);
+        opacity: 100%;
+	}		
+}
+
+.slideLeft {
+    animation-name: slideLeft;
+    animation-fill-mode: forwards;
+	animation-duration: var(--animation-duration);	
+
+	animation-timing-function: ease;	
+}
+
+@keyframes slideLeft {
+	0% {
+		transform: translateX(900%);
+        opacity: 0%;
+	}
+	100% {
+		transform: translateX(0%);
+        opacity: 100%;
+	}		
+}
