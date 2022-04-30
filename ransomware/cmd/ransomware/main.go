@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/PaulDotSH/go-evil/tree/master/ransomware"
+	"github.com/PaulDotSH/go-evil/ransomware"
 	"os"
 )
 

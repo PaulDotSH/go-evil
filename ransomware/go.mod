@@ -1,4 +1,4 @@
-module github.com/PaulDotSH/go-evil/tree/master/ransomware
+module github.com/PaulDotSH/go-evil/ransomware
 
 go 1.18
 
