@@ -1,3 +1,5 @@
+/* fa cu n-th element sa schimbi viteza animatiei */
+
 :root {
     --main-bg-color: #121212;
     --primary-color-dark: #1F1A24;
@@ -24,6 +26,14 @@ button {
     padding: 5px 50px 5px 50px !important;
     border-radius: 1rem !important;
     transition: 0.5s;
+}
+
+.mainContainer {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translateX(-50%) translateY(-50%) !important;
+    text-align: center;
 }
 
 button:focus {
@@ -83,7 +93,7 @@ button:hover {
 
 .input-container {
     border-radius: 1rem;
-    font-family:'Roboto';
+    /* font-family:'Roboto'; */
     width:600px; 
     margin:30px auto 0; 
     display:block; 
