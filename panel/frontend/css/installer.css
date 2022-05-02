@@ -2,14 +2,6 @@
     --animation-duration: 1.5s;
 }
 
-.mainContainer {
-    position: absolute !important;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translateX(-50%) translateY(-50%) !important;
-    text-align: center;
-}
-
 .note {
     font-size: small;
 }
