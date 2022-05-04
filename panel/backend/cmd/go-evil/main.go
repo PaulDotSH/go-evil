@@ -5,6 +5,7 @@ import (
 	"fmt"
 	settings "go-evil"
 	"go-evil/parser"
+	"log"
 	"net/http"
 	"os"
 	"path"
@@ -27,7 +28,10 @@ func main() {
 
 	foo()
 
-	http.ListenAndServe(settings.Endpoint, nil)
+	err := http.ListenAndServe(settings.Endpoint, nil)
+	if err != nil {
+		log.Fatalln(err)
+	}
 }
 
 func foo() {
@@ -37,6 +41,7 @@ func foo() {
 func login(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "POST": //on post set the cookies and whatever
+		fmt.Println(r.Header)
 	case "GET":
 		http.ServeFile(w, r, "../frontend/login.html")
 	}
@@ -50,5 +55,10 @@ func panel(w http.ResponseWriter, r *http.Request) {
 }
 
 func setup(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "../frontend/install.html")
+	switch r.Method {
+	case "POST":
+		fmt.Println(r.Header)
+	case "GET":
+		http.ServeFile(w, r, "../frontend/install.html")
+	}
 }
