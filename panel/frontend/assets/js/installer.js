@@ -1,5 +1,4 @@
-//TODO: https://stackoverflow.com/questions/8294400/css-animations-with-delay-for-each-child-element
-//
+//TODO: move this to css https://stackoverflow.com/questions/8294400/css-animations-with-delay-for-each-child-element
 
 document.getElementById('start-install-btn').addEventListener("click", () => {
     document.getElementById('start-container').classList.add('fadeOut')
