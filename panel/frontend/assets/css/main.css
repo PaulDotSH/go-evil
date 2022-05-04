@@ -50,39 +50,6 @@ button:hover {
     align-items: center;
 }
 
-.fadeOut{
-	animation-name: fadeOut;
-
-	animation-duration: var(--animation-duration);	
-
-	animation-timing-function: ease;	
-}
-
-@keyframes fadeOut {
-	0% {
-        opacity: 100%;
-	}
-	100% {
-        opacity: 0%;
-	}		
-}
-
-.fadeIn{
-    animation-name: fadeIn;
-	animation-duration: var(--animation-duration);	
-
-	animation-timing-function: ease;
-}
-
-@keyframes fadeIn {
-	0% {
-        opacity: 0%;
-	}
-	100% {
-        opacity: 100%;
-	}		
-}
-
 .highlight {
     color: var(--primary-color);
 }
